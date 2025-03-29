@@ -2,8 +2,7 @@ from rest_framework import status, response, decorators
 from .serialz import auth_db_serial, tokens_db_serial, verify_serializer
 from .models import auth_db, tokens_db, verificationSystem, userFields
 from django.core import mail
-# from django.conf import settings
-from .sendMail import sendCodeVerefication
+from django.conf import settings
 from .isStrong import validate_passwd
 import bcrypt, string, random
 from ai.models import conversations
@@ -47,9 +46,8 @@ def signup(req):
             else:
                 return response.Response(verification_serial.errors,
                                          status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-            # mail.send_mail('New News Ai - ACTIVATION', f"Hello {serial.validated_data['email']}\nYour Activation Code is: {code}\nBest Regards,\nNew News Ai team.",
-            #                settings.EMAIL_HOST_USER, [serial.validated_data['email']])
-            sendCodeVerefication(serial.validated_data['email'], code)
+            mail.send_mail('New News Ai - ACTIVATION', f"Hello {serial.validated_data['email']}\nYour Activation Code is: {code}\nBest Regards,\nNew News Ai team.",
+                           settings.EMAIL_HOST_USER, [serial.validated_data['email']])
         except Exception as e:
             print(f"RED: Failed Cuase: {e}")
             return response.Response({'verefication code': 'Fail to send the verefication mail'},
