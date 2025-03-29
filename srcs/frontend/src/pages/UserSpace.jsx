@@ -10,10 +10,10 @@ function UserSpace() {
   const [showSettings, setShowSettings] = useState(false);
   const [password, setPassword] = useState('');
   const [newFields, setNewFields] = useState([]);
-  const [activeChat, setActiveChat] = useState(null); // { conversation_id, messages }
+  const [activeChat, setActiveChat] = useState(null);
   const [chatInput, setChatInput] = useState('');
   const [isSending, setIsSending] = useState(false);
-  const [conversations, setConversations] = useState([]); // History of conversation IDs
+  const [conversations, setConversations] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -82,6 +82,11 @@ function UserSpace() {
     }
   };
 
+  const handleLogout = () => {
+    Cookies.remove('access_token');
+    navigate('/login');
+  };
+
   const toggleField = (field) => {
     setNewFields((prev) =>
       prev.includes(field)
@@ -91,19 +96,23 @@ function UserSpace() {
   };
 
   const openChat = (newsItem) => {
+    const initialContent =
+      newsItem.formWhere === 'NEWS'
+        ? `${newsItem.title}\n${newsItem.subj}`
+        : newsItem.text;
     const initialMessage = {
       type: 'news',
-      content:
-        newsItem.formWhere === 'NEWS'
-          ? `${newsItem.title}\n${newsItem.subj}`
-          : newsItem.text,
+      content: initialContent,
     };
     setActiveChat({
       conversation_id: newsItem.conversation_id,
       messages: [initialMessage],
     });
-    if (!conversations.includes(newsItem.conversation_id)) {
-      setConversations((prev) => [...prev, newsItem.conversation_id]);
+    if (!conversations.some((conv) => conv.id === newsItem.conversation_id)) {
+      setConversations((prev) => [
+        ...prev,
+        { id: newsItem.conversation_id, preview: initialContent.slice(0, 10) },
+      ]);
     }
   };
 
@@ -112,13 +121,30 @@ function UserSpace() {
       const token = Cookies.get('access_token');
       const response = await axios.post(
         '/ai/api/getConv',
-        { conversation_id: convId},
+        { conversation_id: convId },
         { headers: { 'Access-Token': token } }
       );
-      const messages = response.data.map((msg) => ({
-        type: msg.type || (msg.from === 'user' ? 'user' : 'ai'),
-        content: msg.content,
-      }));
+      const messages = Object.entries(response.data)
+        .sort(([keyA], [keyB]) => {
+          const numA = parseInt(keyA.split(' ')[1]);
+          const numB = parseInt(keyB.split(' ')[1]);
+          return numA - numB;
+        })
+        .map(([key, value]) => {
+          if (key.includes('News')) {
+            return {
+              type: 'ai',
+              content: value.text || value,
+            };
+          } else if (key.includes('Client Question')) {
+            return {
+              type: 'user',
+              content: value,
+            };
+          }
+          return null;
+        })
+        .filter((msg) => msg !== null);
       setActiveChat({ conversation_id: convId, messages });
     } catch (error) {
       console.error('Failed to fetch conversation history:', error);
@@ -160,6 +186,11 @@ function UserSpace() {
     }
   };
 
+  const handleChatInputChange = (e) => {
+    console.log('Input changed:', e.target.value);
+    setChatInput(e.target.value);
+  };
+
   const formatDate = (dateStr) => {
     const date = new Date(dateStr);
     return date.toLocaleString('en-US', {
@@ -195,13 +226,13 @@ function UserSpace() {
         </div>
         <h3>History</h3>
         <ul className="conversation-history">
-          {conversations.map((convId) => (
+          {conversations.map((conv) => (
             <li
-              key={convId}
+              key={conv.id}
               className="history-item"
-              onClick={() => fetchConversationHistory(convId)}
+              onClick={() => fetchConversationHistory(conv.id)}
             >
-              {convId}
+              {conv.preview}
             </li>
           ))}
         </ul>
@@ -267,7 +298,7 @@ function UserSpace() {
             <input
               type="text"
               value={chatInput}
-              onChange={(e) => setChatInput(e.target.value)}
+              onChange={handleChatInputChange}
               placeholder="Type your message..."
               className="input-field"
               disabled={isSending}
@@ -290,7 +321,7 @@ function UserSpace() {
             <label>
               New Password:
               <input
-                type="password"
+                type="text"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Leave blank to keep current"
@@ -313,6 +344,9 @@ function UserSpace() {
             <button type="submit" className="submit-btn">Save</button>
             <button type="button" onClick={toggleSettings} className="cancel-btn">
               Cancel
+            </button>
+            <button type="button" onClick={handleLogout} className="logout-btn">
+              Logout
             </button>
           </form>
         </div>

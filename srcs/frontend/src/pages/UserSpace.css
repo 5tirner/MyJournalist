@@ -102,7 +102,7 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   transition: all 0.3s ease;
   position: relative;
-  min-height: 10rem; /* Ensure space for button */
+  min-height: 10rem;
 }
 
 .news-post:hover {
@@ -129,7 +129,7 @@
 
 .post-content {
   position: relative;
-  padding-bottom: 3rem; /* Space for button */
+  padding-bottom: 3rem;
 }
 
 .post-content h3 {
@@ -191,8 +191,8 @@
   position: fixed;
   bottom: 0;
   right: 2rem;
-  width: 25rem; /* Increased width */
-  max-height: 80vh; /* Increased height */
+  width: 25rem;
+  max-height: 80vh;
   background: #1a202c;
   border-radius: 8px 8px 0 0;
   box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.3);
@@ -218,7 +218,7 @@
   background: none;
   border: none;
   color: #e2e8f0;
-  font-size: 2rem; /* Larger X */
+  font-size: 2rem;
   font-weight: bold;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -451,4 +451,20 @@
     bottom: 0;
     border-radius: 0;
   }
+}
+
+.logout-btn {
+  padding: 0.75rem;
+  margin-top: 0.5rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: #e53e3e;
+  color: #e2e8f0;
+}
+
+.logout-btn:hover {
+  background: #c53030;
+  transform: translateY(-2px);
 }

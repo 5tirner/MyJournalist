@@ -20,8 +20,8 @@
     animation: floatIn 1s ease-out forwards;
     width: 100%;
     max-width: 60rem;
-    overflow-x: hidden; /* Prevent horizontal scroll */
-    overflow-y: auto; /* Vertical scroll if needed */
+    overflow-x: hidden;
+    overflow-y: auto;
   }
   
   .home-content:hover {
@@ -64,14 +64,14 @@
   
   .fields-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr)); /* Reduced min width */
-    gap: 0.75rem; /* Reduced gap */
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    gap: 0.75rem;
     margin-bottom: 1rem;
-    width: 100%; /* Ensure grid fits container */
+    width: 100%;
   }
   
   .field-card {
-    padding: 0.75rem; /* Reduced padding */
+    padding: 0.75rem;
     border-radius: 8px;
     background: #2d3748;
     color: #e2e8f0;
@@ -84,8 +84,8 @@
     background-position: center;
     background-repeat: no-repeat;
     opacity: 0.85;
-    width: 100%; /* Ensure card fits grid cell */
-    box-sizing: border-box; /* Include padding in width */
+    width: 100%;
+    box-sizing: border-box;
   }
   
   .field-card:hover {
@@ -94,7 +94,6 @@
     opacity: 1;
   }
   
-  /* Background images for each field */
   .field-card.football {
     background-image: url('https://images.unsplash.com/photo-1511886926351-d3c42a1f2f2b?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80');
   }

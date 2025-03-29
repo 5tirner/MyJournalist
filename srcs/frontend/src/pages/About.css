@@ -1,5 +1,5 @@
 .about-container {
-    min-height: calc(100vh - 8rem); /* Adjust for header and footer */
+    min-height: calc(100vh - 8rem);
     display: flex;
     align-items: center;
     justify-content: center;
