@@ -2,6 +2,8 @@ FROM python
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 WORKDIR /work
+RUN apt update -y
+RUN apt install redis-server -y
 RUN pip install --upgrade pip
 RUN pip install django
 RUN pip install django_rest_framework
