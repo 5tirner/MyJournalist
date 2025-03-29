@@ -193,3 +193,4 @@ class lastNews(AsyncJsonWebsocketConsumer):
             await self.send_json(data["Data"])
         except:
             pass
+    
