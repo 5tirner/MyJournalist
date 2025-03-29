@@ -1,0 +1,39 @@
+services:
+  newnews:
+    container_name: backend
+    build: ./srcs/backend/
+    image: backendimage
+    init: true
+    networks:
+      - net
+    env_file:
+      - ./.env
+
+  # frontend:
+  #   container_name: frontend
+  #   build: ./srcs/frontend/
+  #   image: frontendimage
+  #   init: true
+  #   networks:
+  #     - net
+  #   volumes:
+  #     - ./srcs/frontend:/app/
+
+  nginx:
+    container_name: nginx
+    build: ./srcs/reverse_proxy
+    image: nginximg
+    ports:
+      - '4444:80'
+    depends_on:
+      - newnews
+      # - frontend
+    init: true
+    networks:
+      - net
+    volumes:
+      - ./srcs/frontend/dist:/usr/share/nginx/html
+
+networks:
+  net:
+    name: newnewsai

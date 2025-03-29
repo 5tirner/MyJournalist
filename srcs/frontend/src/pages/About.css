@@ -1,0 +1,90 @@
+.about-container {
+    min-height: calc(100vh - 8rem); /* Adjust for header and footer */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #2d3748 0%, #4a5568 100%);
+    padding: 3rem 1rem;
+    perspective: 1000px;
+  }
+  
+  .about-content {
+    background: #1a202c;
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), inset 0 0 10px rgba(113, 128, 150, 0.1);
+    max-width: 52rem;
+    width: 100%;
+    transform: perspective(1000px) rotateX(3deg);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    animation: floatIn 1s ease-out forwards;
+  }
+  
+  .about-content:hover {
+    transform: perspective(1000px) rotateX(0deg) translateY(-10px);
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.5), 0 0 20px rgba(43, 108, 176, 0.2);
+  }
+  
+  .about-content h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: #e2e8f0;
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  }
+  
+  .about-content p {
+    font-size: 1.125rem;
+    color: #a0aec0;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+  }
+  
+  .github-link {
+    color: #2b6cb0;
+    text-decoration: none;
+    font-weight: 600;
+    margin-left: 0.5rem;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+  
+  .github-link:hover {
+    color: #63b3ed;
+    text-shadow: 0 0 8px rgba(43, 108, 176, 0.5);
+  }
+  
+  .github-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: #2b6cb0;
+    transition: width 0.3s ease;
+  }
+  
+  .github-link:hover::after {
+    width: 100%;
+  }
+  
+  @keyframes floatIn {
+    from {
+      transform: perspective(1000px) rotateX(10deg) translateY(50px);
+      opacity: 0;
+    }
+    to {
+      transform: perspective(1000px) rotateX(3deg);
+      opacity: 1;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .about-content {
+      padding: 1.5rem;
+    }
+    .about-content h1 {
+      font-size: 2rem;
+    }
+  }

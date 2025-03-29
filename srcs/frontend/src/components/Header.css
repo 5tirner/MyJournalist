@@ -1,0 +1,101 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 2rem;
+    background: #1a202c;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  
+  .logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #e2e8f0;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  
+  .logo:hover {
+    color: #2b6cb0;
+  }
+  
+  .nav-buttons {
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .nav-btn {
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    background: #2d3748;
+    color: #e2e8f0;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .nav-btn:hover {
+    background: #4a5568;
+    transform: translateY(-2px);
+  }
+  
+  .login-btn {
+    background: #2b6cb0;
+  }
+  
+  .signup-btn {
+    background: #2c7a7b;
+  }
+  
+  .home-btn {
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    background: #2d3748;
+    color: #e2e8f0;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+  
+  .home-btn:hover {
+    background: #4a5568;
+    transform: translateY(-2px);
+  }
+  
+  .notifications-btn {
+    background: none;
+    border: none;
+    color: #e2e8f0;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .notifications-btn:hover {
+    background: #4a5568;
+    transform: scale(1.1);
+    color: #38a169;
+  }
+  
+  .no-select {
+    user-select: none;
+  }
+  
+  @media (max-width: 640px) {
+    .header {
+      padding: 0.5rem 1rem;
+      flex-wrap: wrap;
+    }
+    .nav-btn, .home-btn {
+      padding: 0.5rem;
+      font-size: 0.875rem;
+    }
+  }

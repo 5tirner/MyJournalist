@@ -1,0 +1,30 @@
+.footer {
+    padding: 1rem 2rem;
+    background: #1a202c;
+    text-align: center;
+    color: #a0aec0;
+    font-size: 0.875rem;
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.3);
+  }
+  
+  .footer p {
+    margin: 0;
+    transition: color 0.3s ease;
+  }
+  
+  .footer:hover p {
+    color: #e2e8f0;
+  }
+  
+  @media (max-width: 640px) {
+    .footer {
+      padding: 1rem;
+    }
+  }
+  .submit-btn span {
+    display: block;
+  }
+  
+  .no-select {
+    user-select: none;
+  }

@@ -1,0 +1,184 @@
+.choose-fields-container {
+    min-height: 100%; /* Ensure it fills main */
+    display: flex;
+    flex-direction: column; /* Stack content vertically */
+    align-items: center;
+    justify-content: space-between; /* Push content to top and bottom */
+    background: linear-gradient(135deg, #2d3748 0%, #4a5568 100%);
+    padding: 0; /* Remove padding */
+  }
+  
+  .choose-fields-form {
+    background: #1a202c;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), inset 0 0 10px rgba(113, 128, 150, 0.1);
+    width: 100%;
+    max-width: 52rem;
+    transform: perspective(1000px) rotateX(5deg);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    animation: floatIn 1s ease-out forwards;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; /* Stretch form to fill container */
+    margin: 1rem; /* Margin instead of padding on container */
+  }
+  
+  .choose-fields-form:hover {
+    transform: perspective(1000px) rotateX(0deg) translateZ(20px);
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.5), 0 0 20px rgba(43, 108, 176, 0.2);
+  }
+  
+  .choose-fields-form h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: #e2e8f0;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+  }
+  
+  .fields-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    gap: 1rem;
+    margin-bottom: 1rem;
+    flex-grow: 1; /* Expand grid to fill space */
+  }
+  
+  .field-btn {
+    padding: 1rem;
+    border-radius: 8px;
+    background: #2d3748;
+    color: #e2e8f0;
+    border: none;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    transform: perspective(500px) rotateY(5deg);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.85;
+  }
+  
+  .field-btn:hover {
+    transform: perspective(500px) rotateY(0deg) translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4), 0 0 15px rgba(43, 108, 176, 0.2);
+    opacity: 1;
+  }
+  
+  .field-btn.selected {
+    background: #38a169; /* Green for selected */
+    transform: perspective(500px) rotateY(-5deg);
+    opacity: 1;
+  }
+  
+  .field-btn.selected:hover {
+    transform: perspective(500px) rotateY(0deg) translateY(-5px);
+  }
+  
+  .field-icon {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    display: block;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  }
+  
+  .field-btn::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(226, 232, 240, 0.3);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.4s ease, height 0.4s ease;
+  }
+  
+  .field-btn:hover::after {
+    width: 300px;
+    height: 300px;
+  }
+  
+  .submit-btn {
+    width: 100%;
+    padding: 1rem;
+    background: #2b6cb0;
+    color: #e2e8f0;
+    border-radius: 8px;
+    border: none;
+    font-size: 1.125rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .submit-btn:disabled {
+    background: #4a5568;
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+  
+  .submit-btn:hover:not(:disabled) {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4), 0 0 15px rgba(43, 108, 176, 0.3);
+  }
+  
+  .submit-btn::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(226, 232, 240, 0.3);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.4s ease, height 0.4s ease;
+  }
+  
+  .submit-btn:hover:not(:disabled)::after {
+    width: 300px;
+    height: 300px;
+  }
+  
+  .submit-btn span {
+    display: block;
+  }
+  
+  .no-select {
+    user-select: none;
+  }
+  
+  @keyframes floatIn {
+    from {
+      transform: perspective(1000px) rotateX(15deg) translateY(50px);
+      opacity: 0;
+    }
+    to {
+      transform: perspective(1000px) rotateX(5deg);
+      opacity: 1;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .fields-grid {
+      grid-template-columns: 1fr;
+    }
+    .choose-fields-form {
+      padding: 1rem;
+      margin: 0.5rem;
+    }
+    .choose-fields-form h2 {
+      font-size: 1.25rem;
+    }
+    .field-icon {
+      font-size: 1.5rem;
+    }
+  }
