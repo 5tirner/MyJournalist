@@ -16,27 +16,14 @@ import os, dotenv
 dotenv.load_dotenv()
 
 #Twitter COOKIES
-# CFBM = os.getenv('__cf_bm')
-# TWITTER_SESS = os.getenv('_twitter_sess')
 AUTH_TOKEN = os.getenv('AUTH_TOKEN')
 CT0 = os.getenv('CT0')
-# GT = os.getenv('gt')
-# GUEST_ID = os.getenv('guest_id')
-# GUEST_ID_ADS = os.getenv('guest_id_ads')
-# GUEST_ID_MARKETING = os.getenv('guest_id_marketing')
-# KDT = os.getenv('kdt')
-# LANG = os.getenv('lang')
-# PESR_ID = os.getenv('personalization_id')
-# TWID = os.getenv('twid')
-
-#SETUP CELERY
-CELERY_BROKER_URL = 'redis://localhost:6379/0'
-CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
 
 #GOOGLE SEARCH
 SEARCH_URL = os.getenv('SEARCH_URL')
 SEARCH_ENGINE_ID=os.getenv('SEARCH_ENGINE_ID')
 SEARCH_API_KEY=os.getenv('SEARCH_API_KEY')
+
 #News Apis
 NEWS_API = os.getenv('NEWS_API')
 NEWS_URL = os.getenv('NEWS_URL')
@@ -53,10 +40,7 @@ EMAIL_PORT = os.getenv('EMAIL_PORT')
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-v=u*s!u#wzuxxge=23o+6(l-@q(()^85#+57iaju8)y9)lxkuo'

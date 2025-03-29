@@ -7,22 +7,24 @@ function Signup({ setAuth }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
     try {
       await axios.post('/auth/api/signup', { email, password });
       setAuth(false);
       navigate('/verify', { state: { email } });
     } catch (error) {
-      if (error.response.data[Object.keys(error.response.data)[0]] == 'auth_db with this email already exists.')
-      {
+      if (error.response.data[Object.keys(error.response.data)[0]] === 'auth_db with this email already exists.') {
         setError('This Email Already Used');
-      }
-      else{
+      } else {
         setError(error.response.data[Object.keys(error.response.data)[0]] || 'Signup failed. Please try again.');
       }
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -45,8 +47,18 @@ function Signup({ setAuth }) {
           onChange={(e) => setPassword(e.target.value)}
           className="input-field"
         />
-        <button type="submit" className="submit-btn">
-          <span className="no-select">Sign Up</span>
+        <button 
+          type="submit" 
+          className={`submit-btn ${isLoading ? 'loading' : ''}`}
+          disabled={isLoading}
+        >
+          <span className="no-select">
+            {isLoading ? (
+              <span className="loading-text">Signing Up</span>
+            ) : (
+              'Sign Up'
+            )}
+          </span>
         </button>
       </form>
     </div>
