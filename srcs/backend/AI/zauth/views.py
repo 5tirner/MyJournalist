@@ -35,25 +35,26 @@ def signup(req):
         tokens = generate_tokens(serial.validated_data['email'])
         tokens_serial = tokens_db_serial(data=tokens)
         if tokens_serial.is_valid():
-            tokens_serial.save()
-        try:
-            code = ''.join(random.choices(string.digits + string.ascii_letters, k=8))
-            verification_serial = verify_serializer(data={
-                                            'identity': serial.validated_data['email'],
-                                            'ActivationCode': code })
-            if verification_serial.is_valid():
-                verification_serial.save()
-            else:
-                return response.Response(verification_serial.errors,
-                                         status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-            mail.send_mail('New News Ai - ACTIVATION', f"Hello {serial.validated_data['email']}\nYour Activation Code is: {code}\nBest Regards,\nNew News Ai team.",
-                           settings.EMAIL_HOST_USER, [serial.validated_data['email']])
-        except Exception as e:
-            print(f"RED: Failed Cuase: {e}")
-            return response.Response({'verefication code': 'Fail to send the verefication mail'},
-                                     status=status.HTTP_504_GATEWAY_TIMEOUT)
-        serial.save()
-        return response.Response(status=status.HTTP_201_CREATED)
+            try:
+                code = ''.join(random.choices(string.digits + string.ascii_letters, k=8))
+                verification_serial = verify_serializer(data={
+                                                'identity': serial.validated_data['email'],
+                                                'ActivationCode': code })
+                if verification_serial.is_valid():
+                    mail.send_mail('New News Ai - ACTIVATION', f"Hello {serial.validated_data['email']}\nYour Activation Code is: {code}\nBest Regards,\nNew News Ai team.",
+                               settings.EMAIL_HOST_USER, [serial.validated_data['email']])
+                    verification_serial.save()
+                    tokens_serial.save()
+                    serial.save()
+                    return response.Response(status=status.HTTP_201_CREATED)
+                else:
+                    print("Verify Serial Failed")
+                    return response.Response(verification_serial.errors,
+                                             status=status.HTTP_429_TOO_MANY_REQUESTS)
+            except Exception as e:
+                print(f"RED: Failed Cuase: {e}")
+                return response.Response({'verefication code': 'Fail to send the verefication mail'},
+                                         status=status.HTTP_504_GATEWAY_TIMEOUT)
     return response.Response(serial.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @decorators.api_view(["POST"])

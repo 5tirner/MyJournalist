@@ -183,7 +183,7 @@ class lastNews(AsyncJsonWebsocketConsumer):
     async def disconnect(self, code):
         try:
             print("Disconnect")
-            await self.close()
+            await self.close(code)
         except:
             print("closing fail")
     
