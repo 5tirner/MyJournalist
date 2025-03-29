@@ -13,6 +13,8 @@ RUN pip install requests
 RUN pip install google-generativeai
 RUN pip install jsonfield
 RUN pip install twikit
+RUN pip install celery
+RUN pip install redis
 COPY ./AI .
 COPY ./run/run.sh .
 RUN chmod +x run.sh

@@ -29,6 +29,10 @@ CT0 = os.getenv('CT0')
 # PESR_ID = os.getenv('personalization_id')
 # TWID = os.getenv('twid')
 
+#SETUP CELERY
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+
 #GOOGLE SEARCH
 SEARCH_URL = os.getenv('SEARCH_URL')
 SEARCH_ENGINE_ID=os.getenv('SEARCH_ENGINE_ID')
